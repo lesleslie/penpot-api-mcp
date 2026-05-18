@@ -1,0 +1,18 @@
+server_name: "penpot-api-mcp"
+server_description: "MCP server wrapping the Penpot REST API"
+
+# Penpot API connection
+base_url: "https://design.penpot.app/api"
+
+# HTTP transport (Claude Code compatible)
+enable_http_transport: true
+http_host: "127.0.0.1"
+http_port: 3051
+
+# Request behaviour
+request_timeout: 30.0
+max_connections: 10
+
+# Logging
+log_level: "INFO"
+log_json: true

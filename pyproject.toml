@@ -1,0 +1,65 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "penpot-api-mcp"
+version = "0.1.0"
+description = "MCP server wrapping the Penpot REST API for headless design automation"
+readme = "README.md"
+license = { text = "BSD-3-Clause" }
+requires-python = ">=3.13"
+authors = [{ name = "Les Leslie", email = "les@wedgwoodwebworks.com" }]
+keywords = ["mcp", "penpot", "design", "automation", "model-context-protocol"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "fastmcp>=2.12.0",
+    "httpx>=0.27.0",
+    "mcp-common>=0.15.0",
+    "oneiric>=0.3.6",
+    "pydantic>=2.12.0",
+    "pydantic-settings>=2.0",
+    "structlog>=25.0.0",
+    "uvicorn>=0.30.0",
+]
+
+[project.scripts]
+penpot-api-mcp = "penpot_api_mcp.__main__:main"
+
+[dependency-groups]
+dev = [
+    "crackerjack>=0.50.0",
+    "session-buddy>=0.12.0",
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=4.1.0",
+    "respx>=0.21.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["penpot_api_mcp"]
+
+[tool.penpot-api-mcp]
+http_port = 3051
+http_host = "127.0.0.1"
+enable_http_transport = true
+
+[tool.ruff]
+target-version = "py313"
+line-length = 88
+exclude = ["tests/", "test_*.py", "*_test.py"]
+
+[tool.ruff.lint]
+extend-select = ["C901", "F", "I", "UP"]
+ignore = ["E402", "F821"]
+fixable = ["ALL"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
