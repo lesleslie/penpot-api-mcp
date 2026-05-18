@@ -37,6 +37,6 @@ Set `PENPOT_ACCESS_TOKEN` (preferred) or `PENPOT_EMAIL` + `PENPOT_PASSWORD`. Nev
 ## Critical Invariants
 
 1. All `_rpc()` calls use `transit=True` — Penpot speaks Transit+JSON
-2. `encode()` / `decode()` are the only correct way to build/parse Penpot payloads
-3. After password login, session is cookie-jar only — `self._api_token` stays empty
-4. FastMCP lifespan via constructor `lifespan=` param, not `_mcp_server.lifespan` patch
+1. `encode()` / `decode()` are the only correct way to build/parse Penpot payloads
+1. After password login, session is cookie-jar only — `self._api_token` stays empty
+1. FastMCP lifespan via constructor `lifespan=` param, not `_mcp_server.lifespan` patch

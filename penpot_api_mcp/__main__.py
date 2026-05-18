@@ -65,8 +65,13 @@ class PenpotApiMCPServer(BaseOneiricServerMixin):
         base.append(
             self.runtime.health_monitor.create_component_health(
                 name="penpot-api",
-                status=HealthStatus.HEALTHY if settings.is_configured else HealthStatus.UNHEALTHY,
-                details={"configured": settings.is_configured, "auth_method": "token" if settings.has_token_auth else "password"},
+                status=HealthStatus.HEALTHY
+                if settings.is_configured
+                else HealthStatus.UNHEALTHY,
+                details={
+                    "configured": settings.is_configured,
+                    "auth_method": "token" if settings.has_token_auth else "password",
+                },
             )
         )
         return self.runtime.health_monitor.create_health_response(base)

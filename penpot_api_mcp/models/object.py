@@ -26,6 +26,7 @@ class PenpotObjectTree(BaseModel):
     def search(self, query: str) -> list[PenpotObject]:
         q = query.lower()
         return [
-            obj for obj in self.objects.values()
+            obj
+            for obj in self.objects.values()
             if q in obj.name.lower() or q in obj.type.lower()
         ]

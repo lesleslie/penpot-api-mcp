@@ -41,6 +41,7 @@ uv run mypy .                        # Type check
 **Transit+JSON**: Penpot's RPC API uses Transit+JSON (Clojure serialization). All encoding/decoding is centralized in `penpot_api_mcp/utils/transit.py`. Never manually construct `~:key` or `~uUUID` payloads elsewhere — use `encode()` / `decode()`.
 
 **Auth separation**: Two auth paths must stay separate:
+
 - API token (`PENPOT_ACCESS_TOKEN`): stored in `self._api_token`, sent as `Authorization: Token` header
 - Password auth: session cookie only, stored in the httpx cookie jar, never converted to a Bearer token
 

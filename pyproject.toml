@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "penpot-api-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "MCP server wrapping the Penpot REST API for headless design automation"
 readme = "README.md"
 license = { text = "BSD-3-Clause" }

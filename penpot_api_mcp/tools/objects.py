@@ -38,7 +38,9 @@ def register_object_tools(app: FastMCP, client: PenpotClient) -> None:
         export_type: str = "png",
     ) -> dict:
         """Export a design object as an image. Returns base64-encoded bytes."""
-        data = await client.export_object(file_id, object_id, scale=scale, export_type=export_type)
+        data = await client.export_object(
+            file_id, object_id, scale=scale, export_type=export_type
+        )
         return {
             "file_id": file_id,
             "object_id": object_id,

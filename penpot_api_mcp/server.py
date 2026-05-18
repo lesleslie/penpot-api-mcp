@@ -38,11 +38,15 @@ def create_app() -> FastMCP:
     @app.custom_route("/health", methods=["GET"])
     async def health_check(request: Any) -> Any:
         from starlette.responses import JSONResponse
-        return JSONResponse({"status": "ok", "service": "penpot-api", "version": APP_VERSION})
+
+        return JSONResponse(
+            {"status": "ok", "service": "penpot-api", "version": APP_VERSION}
+        )
 
     @app.custom_route("/healthz", methods=["GET"])
     async def healthz(request: Any) -> Any:
         from starlette.responses import JSONResponse
+
         return JSONResponse({"status": "ok"})
 
     register_all_tools(app, client)

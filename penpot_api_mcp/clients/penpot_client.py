@@ -5,8 +5,6 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-import httpx
-
 from penpot_api_mcp.clients.base_client import BaseHTTPClient
 from penpot_api_mcp.config.settings import PenpotSettings
 from penpot_api_mcp.models import (
@@ -60,7 +58,9 @@ class PenpotClient(BaseHTTPClient):
         """Authenticate with email+password. Stores the session cookie in the
         httpx client jar — does NOT store it as a Bearer token."""
         client = await self._get_client()
-        payload = encode({"email": self._settings.email, "password": self._settings.password})
+        payload = encode(
+            {"email": self._settings.email, "password": self._settings.password}
+        )
         headers = {
             "Content-Type": "application/transit+json",
             "Accept": "application/transit+json",
@@ -72,7 +72,9 @@ class PenpotClient(BaseHTTPClient):
 
         token = response.cookies.get("auth-token")
         if not token:
-            raise RuntimeError("Penpot login succeeded but auth-token cookie was missing")
+            raise RuntimeError(
+                "Penpot login succeeded but auth-token cookie was missing"
+            )
 
         # Persist the session cookie in the client jar for all subsequent requests.
         # Do NOT set self._api_token — cookie value != Bearer API token.
@@ -192,13 +194,15 @@ class PenpotClient(BaseHTTPClient):
         """Export a single object as an image. Returns raw bytes."""
         await self._ensure_authenticated()
         client = await self._get_client()
-        payload = encode({
-            "file-id": file_id,
-            "object-id": object_id,
-            "scale": scale,
-            "suffix": suffix,
-            "type": export_type,
-        })
+        payload = encode(
+            {
+                "file-id": file_id,
+                "object-id": object_id,
+                "scale": scale,
+                "suffix": suffix,
+                "type": export_type,
+            }
+        )
         headers = {
             "Content-Type": "application/transit+json",
             "Accept": "application/octet-stream",
