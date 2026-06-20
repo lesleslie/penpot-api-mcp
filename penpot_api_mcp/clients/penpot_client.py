@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Any
+from typing import Any, cast
 
 from penpot_api_mcp.clients.base_client import BaseHTTPClient
 from penpot_api_mcp.config.settings import PenpotSettings
@@ -82,10 +82,10 @@ class PenpotClient(BaseHTTPClient):
         self._password_authenticated = True
 
         auth_data = response.cookies.get("auth-data", "")
-        if "profile-id=" in auth_data:
-            self._profile_id = (
-                auth_data.split("profile-id=")[1].split(";")[0].strip('"')
-            )
+        if auth_data and "profile-id=" in auth_data:
+            self._profile_id = auth_data.split("profile-id=", 1)[1].split(";", 1)[
+                0
+            ].strip('"')
 
         logger.info("Penpot password login successful")
 
@@ -102,7 +102,8 @@ class PenpotClient(BaseHTTPClient):
     ) -> Any:
         """POST to /rpc/command/{command} with Transit+JSON encode/decode."""
         await self._ensure_authenticated()
-        body = encode(params or {}) if transit else (params or {})
+        payload: dict[str, Any] = params or {}
+        body = encode(payload) if transit else payload
         raw = await self._post(
             f"/rpc/command/{command}",
             body,
@@ -152,7 +153,7 @@ class PenpotClient(BaseHTTPClient):
         return PenpotFileList(items=items)
 
     async def get_file(self, file_id: str) -> dict[str, Any]:
-        return await self._rpc("get-file", {"id": file_id})
+        return cast(dict[str, Any], await self._rpc("get-file", {"id": file_id}))
 
     # ------------------------------------------------------------------
     # Objects
@@ -206,8 +207,8 @@ class PenpotClient(BaseHTTPClient):
         headers = {
             "Content-Type": "application/transit+json",
             "Accept": "application/octet-stream",
-            **self._auth_headers(),
         }
+        headers |= self._auth_headers()
         response = await client.post(
             "/rpc/command/export-binfile", json=payload, headers=headers
         )
@@ -219,4 +220,4 @@ class PenpotClient(BaseHTTPClient):
     # ------------------------------------------------------------------
 
     async def get_profile(self) -> dict[str, Any]:
-        return await self._rpc("get-profile")
+        return cast(dict[str, Any], await self._rpc("get-profile"))

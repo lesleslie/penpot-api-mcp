@@ -1,0 +1,16 @@
+{
+  "timestamp": "20260620-030925",
+  "total_errors": 1,
+  "success_count": 0,
+  "total_count": 3,
+  "success_rate": 0.0,
+  "error_groups": {
+    "Max Retries Error": [
+      {
+        "type": "Max Retries Error",
+        "message": "Failed after 3 attempts: Attempt 1: Quality validation failed (ruff/refurb):\n - ruff invalid-syntax (line 10): Expected one or more symbol names after import\n - ruff invalid-syntax (line 12): Unexpected indentation\n - ruff invalid-syntax (line 18): Expected a statement\n - ruff invalid-syntax (line 18): Expected a statement\n; Attempt 2: Quality validation failed (ruff/refurb):\n - ruff invalid-syntax (line 10): Expected one or more symbol names after import\n - ruff invalid-syntax (line 12): Unexpected indentation\n - ruff invalid-syntax (line 18): Expected a statement\n - ruff invalid-syntax (line 18): Expected a statement\n; Attempt 3: Quality validation failed (ruff/refurb):\n - ruff invalid-syntax (line 10): Expected one or more symbol names after import\n - ruff invalid-syntax (line 12): Unexpected indentation\n - ruff invalid-syntax (line 18): Expected a statement\n - ruff invalid-syntax (line 18): Expected a statement\n",
+        "file": "penpot_api_mcp/clients/penpot_client.py"
+      }
+    ]
+  }
+}
