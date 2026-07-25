@@ -7,6 +7,7 @@ from contextlib import asynccontextmanager
 from typing import TYPE_CHECKING, Any, Final
 
 from fastmcp import FastMCP
+from mcp_common.health import register_http_health_route
 
 from penpot_api_mcp import __version__
 from penpot_api_mcp.clients import PenpotClient
@@ -35,13 +36,11 @@ def create_app() -> FastMCP:
 
     app = FastMCP(name=APP_NAME, version=APP_VERSION, lifespan=lifespan)
 
-    @app.custom_route("/health", methods=["GET"])
-    async def health_check(request: Any) -> Any:
-        from starlette.responses import JSONResponse
-
-        return JSONResponse(
-            {"status": "ok", "service": "penpot-api", "version": APP_VERSION}
-        )
+    register_http_health_route(
+        app,
+        service_name="penpot-api",
+        version=APP_VERSION,
+    )
 
     @app.custom_route("/healthz", methods=["GET"])
     async def healthz(request: Any) -> Any:
