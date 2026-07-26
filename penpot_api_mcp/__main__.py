@@ -29,7 +29,7 @@ class PenpotApiConfig(OneiricMCPConfig):  # type: ignore[misc]
 
 class PenpotApiMCPServer(BaseOneiricServerMixin):
     def __init__(self, config: PenpotApiConfig) -> None:
-        self.config = config  # type: ignore[assignment]
+        self.config = config  # type: ignore[assignment]  # ty: ignore[invalid-assignment]
         self.app = create_app()
         self.runtime = create_runtime_components(
             server_name="penpot-api-mcp",
