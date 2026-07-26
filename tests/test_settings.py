@@ -10,9 +10,21 @@ from pydantic import ValidationError
 from penpot_api_mcp.config.settings import PenpotSettings
 
 
+# Sensible empty defaults so tests don't depend on the developer's local env.
+_EMPTY_DEFAULTS: dict[str, Any] = {
+    "access_token": "",
+    "email": "",
+    "password": "",
+}
+
+
 def _settings(**overrides: Any) -> PenpotSettings:
-    """Build a PenpotSettings instance, bypassing the .env file lookup."""
-    return PenpotSettings.model_validate(overrides)
+    """Build a PenpotSettings instance, bypassing .env lookup."""
+    merged = {**_EMPTY_DEFAULTS, **overrides}
+    # _env_file=None stops pydantic-settings from reading .env from disk.
+    # Env vars from the shell still take precedence; tests should pass
+    # explicit values for any field they care about.
+    return PenpotSettings(**merged, _env_file=None)
 
 
 # ---------------------------------------------------------------------------
