@@ -51,7 +51,7 @@ def create_app() -> FastMCP:
     register_all_tools(app, client)
     # Stash the client on the FastMCP instance for tool access; FastMCP's
     # generic type doesn't model this dynamic attribute.
-    app._penpot_client = client  # type: ignore[attr-defined]  # ty: ignore[unresolved-attribute]
+    app._penpot_client = client  # ty: ignore[unresolved-attribute]
     return app
 
 

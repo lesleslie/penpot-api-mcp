@@ -35,8 +35,8 @@ class PenpotSettings(BaseSettings):
     )
 
     # Penpot connection
-    base_url: HttpUrl = Field(  # type: ignore[assignment]
-        default="https://design.penpot.app/api",  # type: ignore[arg-type]
+    base_url: HttpUrl = Field(  # ty: ignore[invalid-assignment]
+        default="https://design.penpot.app/api",
         description="Penpot API base URL (override for self-hosted instances)",
     )
 

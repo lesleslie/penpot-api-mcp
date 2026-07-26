@@ -17,7 +17,7 @@ OneiricMCPConfigType = (
 )
 
 
-class PenpotApiConfig(OneiricMCPConfig):  # type: ignore[misc]
+class PenpotApiConfig(OneiricMCPConfig):
     http_port: int = 3051
     http_host: str = "127.0.0.1"
     enable_http_transport: bool = True
@@ -29,7 +29,7 @@ class PenpotApiConfig(OneiricMCPConfig):  # type: ignore[misc]
 
 class PenpotApiMCPServer(BaseOneiricServerMixin):
     def __init__(self, config: PenpotApiConfig) -> None:
-        self.config = config  # type: ignore[assignment]  # ty: ignore[invalid-assignment]
+        self.config = config  # ty: ignore[invalid-assignment]
         self.app = create_app()
         self.runtime = create_runtime_components(
             server_name="penpot-api-mcp",
