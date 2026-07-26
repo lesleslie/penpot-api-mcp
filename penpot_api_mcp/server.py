@@ -49,7 +49,9 @@ def create_app() -> FastMCP:
         return JSONResponse({"status": "ok"})
 
     register_all_tools(app, client)
-    app._penpot_client = client  # type: ignore[attr-defined]
+    # Stash the client on the FastMCP instance for tool access; FastMCP's
+    # generic type doesn't model this dynamic attribute.
+    app._penpot_client = client  # type: ignore[attr-defined]  # ty: ignore[unresolved-attribute]
     return app
 
 
