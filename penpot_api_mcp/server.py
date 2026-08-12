@@ -63,4 +63,4 @@ def __getattr__(name: str) -> Any:
     raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
 
 
-__all__ = ["create_app", "APP_NAME", "APP_VERSION"]
+__all__ = ["APP_NAME", "APP_VERSION", "create_app"]

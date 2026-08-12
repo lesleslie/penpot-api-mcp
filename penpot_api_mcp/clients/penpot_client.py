@@ -83,9 +83,9 @@ class PenpotClient(BaseHTTPClient):
 
         auth_data = response.cookies.get("auth-data", "")
         if auth_data and "profile-id=" in auth_data:
-            self._profile_id = auth_data.split("profile-id=", 1)[1].split(";", 1)[
-                0
-            ].strip('"')
+            self._profile_id = (
+                auth_data.split("profile-id=", 1)[1].split(";", 1)[0].strip('"')
+            )
 
         logger.info("Penpot password login successful")
 
