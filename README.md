@@ -23,7 +23,7 @@ The official `@penpot/mcp` (TypeScript) requires a live browser plugin to operat
 
 ```bash
 uv sync
-cp .env.example .env   # fill in credentials
+touch .env             # then fill in credentials (see Configuration below)
 ```
 
 ## Configuration
@@ -39,17 +39,26 @@ Environment variables (prefix `PENPOT_`):
 
 Either `PENPOT_ACCESS_TOKEN` or `PENPOT_EMAIL` + `PENPOT_PASSWORD` must be set.
 
+### Transport settings (prefix `PENPOT_MCP_`)
+
+The CLI transport layer uses a separate env prefix from the Penpot API client. Override defaults via:
+
+| Variable | Description | Default |
+|---|---|---|
+| `PENPOT_MCP_HTTP_HOST` | Bind host for the MCP HTTP server | `127.0.0.1` |
+| `PENPOT_MCP_HTTP_PORT` | Bind port for the MCP HTTP server | `3051` |
+| `PENPOT_MCP_ENABLE_HTTP_TRANSPORT` | Toggle HTTP transport on/off | `true` |
+
+Note: `PENPOT_HTTP_PORT` (without the `MCP_` segment) is **not** honored by the CLI; the active prefix is `PENPOT_MCP_`.
+
 ## Running
 
 ```bash
 # HTTP mode (default — Claude Code compatible)
 uv run python -m penpot_api_mcp start --force
-
-# stdio mode
-uv run python -m penpot_api_mcp
 ```
 
-Server listens on `http://localhost:3051/mcp`.
+Server listens on `http://localhost:3051/mcp`. The server is HTTP-only; bare `uv run python -m penpot_api_mcp` without a subcommand falls through to Typer help and does not start a JSON-RPC loop. To bridge to stdio, run the HTTP server behind an external stdio-to-HTTP shim.
 
 ## MCP configuration
 
