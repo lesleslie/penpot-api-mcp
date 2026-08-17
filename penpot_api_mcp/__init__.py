@@ -2,4 +2,6 @@
 
 from __future__ import annotations
 
-__version__ = "0.1.0"
+from importlib.metadata import version as _importlib_version
+
+__version__ = _importlib_version("penpot-api-mcp")
