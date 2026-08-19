@@ -10,7 +10,7 @@ from oneiric.core.config import OneiricMCPConfig
 from oneiric.runtime.mcp_health import HealthStatus
 
 from penpot_api_mcp.config import get_settings
-from penpot_api_mcp.server import create_app
+from penpot_api_mcp.server import create_app_sync
 
 OneiricMCPConfigType = (
     OneiricMCPConfig if not TYPE_CHECKING else "TypedOneiricMCPConfig"
@@ -30,7 +30,7 @@ class PenpotApiConfig(OneiricMCPConfig):
 class PenpotApiMCPServer(BaseOneiricServerMixin):
     def __init__(self, config: PenpotApiConfig) -> None:
         self.config = config  # ty: ignore[invalid-assignment]
-        self.app = create_app()
+        self.app = create_app_sync()
         self.runtime = create_runtime_components(
             server_name="penpot-api-mcp",
             cache_dir=config.cache_dir or ".oneiric_cache",

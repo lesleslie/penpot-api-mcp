@@ -49,6 +49,35 @@ uv run mypy .                        # Type check
 
 **FastMCP lifespan**: Use the `lifespan=` constructor parameter — never monkey-patch `app._mcp_server.lifespan`.
 
+### Tool Profile System
+
+Tool registration is gated by `PENPOT_API_TOOL_PROFILE` (case-insensitive):
+
+| Profile | Tools exposed |
+|-----------|--------------------------------------------------------------------------------------------------------|
+| `MINIMAL` | `health_check` (MCP) + `discover_tools` (W0 meta). HTTP `/health` + `/healthz` routes always available. |
+| `STANDARD` | All 6 `penpot-api-mcp` tools + `health_check` + `discover_tools` (same as FULL — Tier-A trivial). |
+| `FULL` | All 6 `penpot-api-mcp` tools + `health_check` + `discover_tools`. Default when no env var is set. |
+
+The dispatch surface lives in `penpot_api_mcp/tools/profiles.py`:
+
+- `_GROUP_REGISTRY: list[tuple[str, str]]` is the SSOT — every register fn
+  has a uniform `(mcp, settings, client)` signature.
+- `apply_penpot_api_tool_profile(server, settings, client)` is the async
+  entry point consumed by `create_app`. It calls
+  `_apply_tool_profile` (the async helper from `mcp-common` 0.18.0) —
+  NOT the sync `apply_tool_profile` wrapper (which raises `RuntimeError`
+  in event loops; the W2b.3 keystone).
+- `essential_tool_names={"health_check"}` enforces the invariant at every
+  profile via the W0 helper's subset check.
+
+The caller-supplied `settings` + `client` are forwarded through every
+registration path via lambda default-arg capture (the W4.1 + W4.3
+reviewer fixes — silent env reload and dropped `await client.close()`
+are both regression-tested in `tests/unit/test_tool_profile.py`).
+
+See `docs/architecture/tool-profile-rationale.md` for full rationale.
+
 ### Module Layout
 
 ```
