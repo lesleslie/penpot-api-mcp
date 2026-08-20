@@ -73,6 +73,10 @@ Server listens on `http://localhost:3051/mcp`. The server is HTTP-only; bare `uv
 }
 ```
 
+## Installation via Bodai Marketplace
+
+This repo ships a Bodai Claude Code plugin manifest (`.claude-plugin/plugin.json`) plus a colocated `.mcp.json` and three slash commands in `commands/`. To install via the Bodai marketplace, first register the marketplace with Claude Code, then install the plugin by name. Once installed, the slash commands `/penpot-list`, `/penpot-search`, and `/penpot-export` become available alongside the `mcp__penpot-api__*` tools, and the MCP client talks to the server over `http://localhost:3051/mcp` as configured in `.mcp.json`. Penpot credentials still need to be present in the environment (`PENPOT_ACCESS_TOKEN` or `PENPOT_EMAIL` + `PENPOT_PASSWORD`); the plugin manifest only wires the transport, it does not provision Penpot auth.
+
 ## Development
 
 ```bash
