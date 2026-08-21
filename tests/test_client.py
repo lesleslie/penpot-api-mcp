@@ -18,7 +18,7 @@ BASE = "https://design.penpot.app/api"
 
 def _settings(**overrides: Any) -> PenpotSettings:
     defaults: dict[str, Any] = {
-        "access_token": "tok-test",
+        "access_token": "tok-test",  # nosec B105
         "base_url": BASE,
     }
     defaults.update(overrides)
@@ -37,7 +37,7 @@ def _transit_response(data: Any) -> httpx.Response:
 @pytest.mark.asyncio
 @respx.mock
 async def test_api_token_sent_as_header() -> None:
-    settings = _settings(access_token="my-api-token")
+    settings = _settings(access_token="my-api-token")  # nosec B106
     client = PenpotClient(settings)
 
     route = respx.post(f"{BASE}/rpc/command/get-all-projects").mock(
@@ -59,7 +59,7 @@ async def test_api_token_sent_as_header() -> None:
 @pytest.mark.asyncio
 @respx.mock
 async def test_password_login_sets_cookie_not_api_token() -> None:
-    settings = _settings(access_token="", email="user@example.com", password="secret")
+    settings = _settings(access_token="", email="user@example.com", password="secret")  # nosec B106  # gitleaks:allow
     client = PenpotClient(settings)
 
     login_response = httpx.Response(
@@ -83,7 +83,7 @@ async def test_password_login_sets_cookie_not_api_token() -> None:
 @pytest.mark.asyncio
 @respx.mock
 async def test_password_login_no_cookie_raises() -> None:
-    settings = _settings(access_token="", email="user@example.com", password="secret")
+    settings = _settings(access_token="", email="user@example.com", password="secret")  # nosec B106  # gitleaks:allow
     client = PenpotClient(settings)
 
     # Login response with no Set-Cookie
@@ -99,7 +99,7 @@ async def test_password_login_no_cookie_raises() -> None:
 
 @pytest.mark.asyncio
 async def test_no_credentials_raises() -> None:
-    settings = _settings(access_token="", email="", password="")
+    settings = _settings(access_token="", email="", password="")  # nosec B106
     client = PenpotClient(settings)
 
     with pytest.raises(RuntimeError, match="No Penpot credentials"):

@@ -12,9 +12,9 @@ from penpot_api_mcp.config.settings import PenpotSettings
 
 # Sensible empty defaults so tests don't depend on the developer's local env.
 _EMPTY_DEFAULTS: dict[str, Any] = {
-    "access_token": "",
-    "email": "",
-    "password": "",
+    "access_token": "",  # nosec B105
+    "email": "",  # nosec B105
+    "password": "",  # nosec B105
 }
 
 
@@ -46,7 +46,7 @@ def test_configured_with_token() -> None:
 
 
 def test_configured_with_email_and_password() -> None:
-    settings = _settings(email="user@example.com", password="hunter2")
+    settings = _settings(email="user@example.com", password="hunter2")  # nosec B106  # gitleaks:allow
     assert settings.is_configured is True
     assert settings.has_password_auth is True
 
@@ -83,7 +83,7 @@ def test_placeholder_token_rejected(placeholder: str) -> None:
 )
 def test_placeholder_email_rejected(placeholder: str) -> None:
     with pytest.raises(ValidationError) as exc_info:
-        _settings(email=placeholder, password="real-password")
+        _settings(email=placeholder, password="real-password")  # nosec B106  # gitleaks:allow
     assert "placeholder" in str(exc_info.value).lower()
 
 
@@ -103,5 +103,5 @@ def test_placeholder_password_rejected(placeholder: str) -> None:
 
 def test_empty_strings_are_not_placeholders() -> None:
     """Empty credentials are not placeholders — they just mean 'unconfigured'."""
-    settings = _settings(access_token="", email="", password="")
+    settings = _settings(access_token="", email="", password="")  # nosec B106
     assert settings.is_configured is False
