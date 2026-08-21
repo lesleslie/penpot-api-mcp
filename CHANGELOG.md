@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-08-20
+
+### Added
+
+- penpot-api-mcp: Adopt ToolProfile dispatch (W4.4)
+- penpot-api: Bodai plugin conversion (manifest, mcp.json, slash commands)
+
+### Fixed
+
+- penpot-api-mcp: Add trailing newlines (W4.4 round 1 review Minor)
+- penpot-api-mcp: Annotate test fixtures for bandit/betterleaks (nosec B105/B106 + gitleaks:allow)
+- penpot-api-mcp: Untrack .pyscn/reports/ artifacts
+
+### Internal
+
+- Gitignore runtime artifacts + untrack user-authorized cache files (bodai cleanup 2026-08-17)
+- gitignore: Untrack .pyscn/ (bodai 2026-08-20)
+- penpot-api-mcp: Add [tool.creosote] to skip self-tool scan
+- penpot-api-mcp: Bootstrap [tool.crackerjack] section + uv sync upgrade
+- penpot-api-mcp: Gitignore .lycheecache (file, not just dir)
+- penpot-api-mcp: Gitignore .lycheecache + .hypothesis
+- penpot-api-mcp: Untrack .lycheecache + .hypothesis runtime artifacts
+
 ## [0.2.1] - 2026-08-17
 
 ### Documentation
