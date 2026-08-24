@@ -8,7 +8,7 @@ version = "0.3.0"
 description = "MCP server wrapping the Penpot REST API for headless design automation"
 readme = "README.md"
 license = { text = "BSD-3-Clause" }
-requires-python = ">=3.13"
+requires-python = ">=3.14"
 authors = [{ name = "Les Leslie", email = "les@wedgwoodwebworks.com" }]
 keywords = ["mcp", "penpot", "design", "automation", "model-context-protocol"]
 classifiers = [
