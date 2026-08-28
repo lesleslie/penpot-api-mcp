@@ -7,21 +7,21 @@ and `neo4j-mcp`.
 
 ## Tier-A trivial profile mapping
 
-| Profile   | Tools exposed                                                                                                |
+| Profile | Tools exposed |
 |-----------|--------------------------------------------------------------------------------------------------------------|
-| `MINIMAL`  | `health_check` (MCP) + `discover_tools` (W0 meta). HTTP `/health` + `/healthz` routes always available.       |
-| `STANDARD` | All 6 `penpot-api-mcp` tools + `health_check` + `discover_tools` (same as FULL — Tier-A trivial).            |
-| `FULL`     | All 6 `penpot-api-mcp` tools + `health_check` + `discover_tools`. Default behavior when no env var is set.    |
+| `MINIMAL` | `health_check` (MCP) + `discover_tools` (W0 meta). HTTP `/health` + `/healthz` routes always available. |
+| `STANDARD` | All 6 `penpot-api-mcp` tools + `health_check` + `discover_tools` (same as FULL — Tier-A trivial). |
+| `FULL` | All 6 `penpot-api-mcp` tools + `health_check` + `discover_tools`. Default behavior when no env var is set. |
 
 The 6 Penpot tools (Tier-A trivial — no "core subset" to drop at
 STANDARD):
 
 1. `list_projects` (project_tools group)
-2. `get_project_files` (file_tools group)
-3. `get_file` (file_tools group)
-4. `get_object_tree` (object_tools group)
-5. `search_objects` (object_tools group)
-6. `export_object` (object_tools group)
+1. `get_project_files` (file_tools group)
+1. `get_file` (file_tools group)
+1. `get_object_tree` (object_tools group)
+1. `search_objects` (object_tools group)
+1. `export_object` (object_tools group)
 
 ## Why MINIMAL = health-only
 
@@ -74,9 +74,8 @@ replaced `await client.close()` with a no-op that iterated
 (the sync wrapper which raises `RuntimeError` inside an event loop).
 Two regression tests verify:
 
-1. AST structural check for `ast.Await(value=ast.Call(func=ast.Name(
-   id='apply_penpot_api_tool_profile')))` in `server.py`.
-2. Negative test (`test_guard_fails_when_await_is_removed`) — builds a
+1. AST structural check for `ast.Await(value=ast.Call(func=ast.Name( id='apply_penpot_api_tool_profile')))` in `server.py`.
+1. Negative test (`test_guard_fails_when_await_is_removed`) — builds a
    synthetic module with an un-awaited call and asserts the guard
    returns False.
 
@@ -124,8 +123,7 @@ module-level.
 - `penpot_api_mcp/tools/profiles.py` (NEW): `_GROUP_REGISTRY`,
   `PROFILE_REGISTRATIONS`, `_build_registration_map`,
   `register_all_tool_groups`, `apply_penpot_api_tool_profile`.
-- `penpot_api_mcp/server.py` (MODIFIED): async `create_app(settings,
-  server)` with `_run_async_safely` bridge + sync `create_app_sync`
+- `penpot_api_mcp/server.py` (MODIFIED): async `create_app(settings, server)` with `_run_async_safely` bridge + sync `create_app_sync`
   wrapper. Lifespan closes client on shutdown.
 - `pyproject.toml` (MODIFIED): `mcp-common>=0.18.0`.
 - `tests/unit/test_tool_profile.py` (NEW, 31 tests).
