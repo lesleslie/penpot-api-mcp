@@ -1,7 +1,7 @@
 # penpot-api-mcp
 
 [![Code style: crackerjack](https://img.shields.io/badge/code%20style-crackerjack-000042)](https://github.com/lesleslie/crackerjack)
-[![Runtime: oneiric](https://img.shields.io/badge/runtime-oneiric-6e5494)](https://github.com/lesleslie/oneiric)
+[[![Runtime: oneiric](https://img.shields.io/badge/runtime-oneiric-6e5494)](https://github.com/lesleslie/oneiric)
 [![Framework: FastMCP](https://img.shields.io/badge/framework-FastMCP-0ea5e9)](https://github.com/jlowin/fastmcp)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 [![Python: 3.14+](https://img.shields.io/badge/python-3.14%2B-green)](https://www.python.org/downloads/)
@@ -114,15 +114,8 @@ Two modes are supported:
 - **API token** (`PENPOT_ACCESS_TOKEN`): sent as `Authorization: Token <token>` header
 - **Email + password**: authenticates via `/rpc/command/login-with-password`, then relies on the httpx cookie jar (`auth-token` cookie) for all subsequent requests
 
-## Bodai integration
-
-When installed alongside the [Bodai ecosystem](https://github.com/lesleslie/bodai),
-this MCP server is part of the broader Wedgwood Web Works control-plane surface.
-It conforms to the MCP backend wiring discipline documented in
-`mahavishnu/.claude/decisions/mcp-backend-wiring-discipline.md`.
-No Bodai-specific code is imported at runtime — integration is purely via
-shared conventions (tool registration, health checks, version banners).
-
 ## License
 
 BSD 3-Clause. See [LICENSE](LICENSE).
+
+Built on [Oneiric](https://github.com/lesleslie/oneiric) for runtime configuration and [mcp-common](https://github.com/lesleslie/mcp-common) for the FastMCP baseline. [Crackerjack](https://github.com/lesleslie/crackerjack) gates every commit.
