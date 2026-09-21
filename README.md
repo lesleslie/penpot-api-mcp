@@ -8,8 +8,6 @@
 
 MCP server wrapping the [Penpot](https://penpot.app) REST API for headless design automation. Provides read, search, and export access to Penpot projects, files, and design objects — without requiring a browser session.
 
-Part of the **Bodai Ecosystem** alongside Mahavishnu, Akosha, Dhara, Session-Buddy, and Crackerjack.
-
 ## Why this exists
 
 The official `@penpot/mcp` (TypeScript) requires a live browser plugin to operate — it is the right tool for interactive canvas manipulation. This server targets the complementary use case: background automation, asset export pipelines, and AI-driven design queries that run without a browser.
@@ -115,6 +113,15 @@ Two modes are supported:
 
 - **API token** (`PENPOT_ACCESS_TOKEN`): sent as `Authorization: Token <token>` header
 - **Email + password**: authenticates via `/rpc/command/login-with-password`, then relies on the httpx cookie jar (`auth-token` cookie) for all subsequent requests
+
+## Bodai integration
+
+When installed alongside the [Bodai ecosystem](https://github.com/lesleslie/bodai),
+this MCP server is part of the broader Wedgwood Web Works control-plane surface.
+It conforms to the MCP backend wiring discipline documented in
+`mahavishnu/.claude/decisions/mcp-backend-wiring-discipline.md`.
+No Bodai-specific code is imported at runtime — integration is purely via
+shared conventions (tool registration, health checks, version banners).
 
 ## License
 
