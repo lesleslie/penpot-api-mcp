@@ -97,16 +97,6 @@ async def create_app(
 
         server = FastMCP(name=APP_NAME, version=APP_VERSION, lifespan=lifespan)
 
-    # Always register the ``/healthz`` custom route (orchestrator probe)
-    # at the module-level — HTTP routes are independent of the W0 tool
-    # profile dispatch. Kept identical to the pre-W4 behavior so the
-    # load-balancer probe path never breaks.
-    @server.custom_route("/healthz", methods=["GET"])
-    async def healthz(_request: Any) -> Any:
-        from starlette.responses import JSONResponse
-
-        return JSONResponse({"status": "ok"})
-
     # Apply tool profile dispatch (PENPOT_API_TOOL_PROFILE env var).
     #
     # Replaces the previous direct ``register_all_tools(app, client)``

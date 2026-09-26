@@ -104,6 +104,10 @@ playwright-report/
 playwright-results.json
 test-results/
 
+# Per-machine configuration (un-tracked; tracked shareable defaults live at settings/<name>.yaml)
+settings/local.yaml
+.claude/  # Claude Code artifacts (agents, skills, hooks, settings.local.json) — un-tracked per Claude Code convention
+
 # ============================================================================
 # Documentation — image assets
 # ============================================================================
