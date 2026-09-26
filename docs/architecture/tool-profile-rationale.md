@@ -9,7 +9,7 @@ and `neo4j-mcp`.
 
 | Profile | Tools exposed |
 |-----------|--------------------------------------------------------------------------------------------------------------|
-| `MINIMAL` | `health_check` (MCP) + `discover_tools` (W0 meta). HTTP `/health` + `/healthz` routes always available. |
+| `MINIMAL` | `health_check` (MCP) + `discover_tools` (W0 meta). HTTP `/health` route always available. |
 | `STANDARD` | All 6 `penpot-api-mcp` tools + `health_check` + `discover_tools` (same as FULL — Tier-A trivial). |
 | `FULL` | All 6 `penpot-api-mcp` tools + `health_check` + `discover_tools`. Default behavior when no env var is set. |
 
@@ -103,8 +103,7 @@ The FULL profile (the default when no env var is set) registers every
 tool that the pre-W4 implementation registered, plus the new MCP
 `health_check` tool and the W0 `discover_tools` meta-tool. The HTTP
 `/health` route is also new (registered alongside `health_check` inside
-`register_health_tool`); the `/healthz` custom route remains
-module-level.
+`register_health_tool`).
 
 | Surface | Pre-W4 | FULL (default) | STANDARD | MINIMAL |
 |---------|--------|----------------|----------|---------|
@@ -112,7 +111,6 @@ module-level.
 | `health_check` MCP tool | no | yes | yes | yes |
 | `discover_tools` MCP tool | no | yes | yes | yes |
 | `/health` HTTP route | no | yes | yes | yes |
-| `/healthz` HTTP route | yes | yes | yes | yes |
 
 ## Implementation files
 

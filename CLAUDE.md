@@ -42,7 +42,7 @@ Tool registration is gated by `PENPOT_API_TOOL_PROFILE` (case-insensitive):
 
 | Profile | Tools exposed |
 |-----------|--------------------------------------------------------------------------------------------------------|
-| `MINIMAL` | `health_check` (MCP) + `discover_tools` (W0 meta). HTTP `/health` + `/healthz` routes always available. |
+| `MINIMAL` | `health_check` (MCP) + `discover_tools` (W0 meta). HTTP `/health` route always available. |
 | `STANDARD` | All 6 `penpot-api-mcp` tools + `health_check` + `discover_tools` (same as FULL — Tier-A trivial). |
 | `FULL` | All 6 `penpot-api-mcp` tools + `health_check` + `discover_tools`. Default when no env var is set. |
 
